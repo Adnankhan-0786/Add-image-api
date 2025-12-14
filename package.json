@@ -1,0 +1,21 @@
+{
+  "name": "crud-api-project",
+  "version": "1.0.0",
+  "description": "Simple CRUD API using Express and MongoDB",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["node", "express", "mongodb", "crud", "api"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
