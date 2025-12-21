@@ -1,46 +1,34 @@
-const mongoose=require(`mongoose`)
-const studentSchema=new mongoose.Schema({
+const mongoose = require("mongoose");
 
+const studentSchema = new mongoose.Schema({
+  first_name: {
+    type: String,
+    required: true
+  },
+  last_name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  gender: {
+    type: String,
+    enum: ["Male", "Female", "Other"],
+    required: true
+  },
+  profile_pic: {
+    type: String,
+    required: false, // <-- optional banaya
+    default: null     // <-- default value null, agar image nahi upload ki
+  }
+});
 
-first_name:{
-    type:String,
-    required:true
-},
-last_name:{
-    type:String,
-    required:true   
-},
-email:{
-    type:String,
-    required:true,
-    unique:true  
-},
-
-phone:{
-    type:String,
-    required:true   
-},
-gender:{
-    type:String,
-    enum:['Male','Female','Other'],
-    required:true
-},
-profile_pic:{
-    type:String,
-    required:true   
-}
-})
-
-const student=mongoose.model('Student',studentSchema)
-module.exports=mongoose.model('Student',studentSchema)
-
-
-
-
-
-
-
-
-
-
-
+const Student = mongoose.model("Student", studentSchema);
+module.exports = Student;

@@ -8,9 +8,15 @@ app.use(express.json()); // to parse JSON
 mongoose.connect('mongodb://localhost:27017/student')
 .then(() => console.log('Connected to MongoDB successfully!'))
 .catch((err) => console.error('Error connecting to MongoDB:', err));
+ 
+
+
 
 app.use('/api/students', studentroutes); // ✅ corrected line
 
-app.listen(1000, () => {
-  console.log('Server is running on port 4444');
+
+
+app.listen(2222, () => {
+  console.log('Server is running on port 1111');
 });
+ 
