@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Records</title>
+
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .table thead th {
+      background-color: #212529;
+      color: white;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .table tbody td {
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Student Records</h3>
+    <div>
+      
+      <button class="btn btn-primary btn-sm">Refresh</button>
+
+        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+  Add Student
+</button>
+    </div>
+  </div>
+
+
+
+  <!-- Search -->
+  <div class="mb-3">
+    <input type="text" class="form-control" placeholder="Search by name">
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Profile</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Gender</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
+
+
+  <!--  view Model Table -->
+
+
+<div class="modal fade" id="viewStudentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Student Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+              
+              <img id="modalProfile" src="default.png" class="rounded-circle" alt="profile" width="50" height="50">
+
+        <p><strong>First Name: </strong> <span id="modalFirstName"></span></p>
+        <p><strong>Last Name:</strong> <span id="modalLastName"></span></p>
+        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Phone: </strong> <span id="modalPhone"></span></p>
+        <p><strong>Gender:</strong> <span id="modalGender"></span></p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <!--  add student form -->
+   <!-- Add Student Modal Body (chhota sa form) -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+   <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> 
+    <h5 class="modal-title">Add Student</h5> <button type="button" class="btn-close" data-bs-dismiss="modal"></button> 
+  </div> <div class="modal-body"> <form class="addstudentform"> <div class="mb-2"> <input type="text" name="first_name" class="form-control" placeholder="First Name" required> </div>
+     <div class="mb-2"> <input type="text" name="last_name" class="form-control" placeholder="Last Name" required> </div> <div class="mb-2"> 
+      <input type="email" name="email" class="form-control" placeholder="Email" required> </div> <div class="mb-2"> <input type="text" name="phone" class="form-control" placeholder="Phone" required> </div>
+       <div class="mb-2"> <select name="gender" class="form-select" required> <option value="">Select Gender</option> <option value="Male">Male</option>
+         <option value="Female">Female</option> </select> </div> <div class="mb-2"> <input type="file" name="image" class="form-control" accept="image/*">
+         </div> <button type="submit" class="btn btn-success w-100">Add Student</button>
+         </form>
+         </div>
+         </div>
+         </div>
+         </div>
+         
+    <!-- Edit Student Modal -->
+<!-- EDIT STUDENT MODAL -->
+<div class="modal fade" id="editStudentModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="editStudentForm" enctype="multipart/form-data">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <input type="hidden" name="id" id="editStudentId">
+
+          <div class="mb-2">
+            <input type="text" name="first_name" id="editFirstName" class="form-control" placeholder="First Name" required>
+          </div>
+
+          <div class="mb-2">
+            <input type="text" name="last_name" id="editLastName" class="form-control" placeholder="Last Name" required>
+          </div>
+
+          <div class="mb-2">
+            <input type="email" name="email" id="editEmail" class="form-control" placeholder="Email" required>
+          </div>
+
+          <div class="mb-2">
+            <input type="text" name="phone" id="editPhone" class="form-control" placeholder="Phone" required>
+          </div>
+
+          <div class="mb-2">
+            <select name="gender" id="editGender" class="form-select" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <div class="mb-2">
+            <input type="file" name="image" class="form-control" accept="image/*">
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer p-0">
+          <button type="submit" class="btn btn-warning w-100">Update Student</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  const apiUrl=(`http://localhost:9999/api/students`)
+ 
+
+
+  async function fetchStudents() {
+  try {
+    const res = await fetch(apiUrl); // fetch first
+    const data = await res.json(); // now you can await
+
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = ''; // phle data ho to clear kro
+
+    data.forEach(student => {
+      tbody.innerHTML += `  
+        <tr>
+          <td>
+            
+            <img src="${student.profile_pic ? '/uploads/' + student.profile_pic : 'default.png'}" class="rounded-circle" alt="profile" width="50" height="50">
+          </td>
+          <td>${student.first_name}</td>
+          <td>${student.last_name}</td>
+          <td>${student.email}</td>
+          <td>${student.phone}</td>
+          <td>${student.gender}</td>
+          <td>
+                <button class="btn btn-info btn-sm" onclick="viewStudent('${student._id}')">View</button>
+                <button class="btn btn-warning btn-sm" onclick="editStudent('${student._id}')">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteStudent('${student._id}')">Delete</button>
+
+          </td>
+        </tr>
+      `;
+    });
+  } catch (error) {
+    console.log("Error fetching students:", error);
+  }
+}
+
+// Call the function
+fetchStudents();
+
+ 
+
+
+  async function viewStudent(id) {
+  try {
+    const res = await fetch(`${apiUrl}/${id}`);
+    const student = await res.json();
+
+    document.querySelector("#modalFirstName").textContent =`${student.first_name}`
+    document.querySelector("#modalLastName") .textContent=`${student.last_name}`
+    document.querySelector("#modalEmail").textContent=`${student.email}`
+    document.querySelector("#modalPhone").textContent=`${student.phone}`
+    document.querySelector("#modalGender").textContent=`${student.gender}`
+    document.querySelector("#modalProfile").src = student.profile_pic ? '/uploads/' + student.profile_pic : 'default.png';
+
+      new bootstrap.Modal(document.querySelector('#viewStudentModal')).show();
+
+
+  } catch (error) {
+    console.error("Error fetching student details:", error);
+  }
+}
+//
+
+  document.querySelector(".addstudentform").addEventListener("submit", async (e) =>{
+  e.preventDefault(); // prevent default submit behavior
+                                                                   // prevent default is use bcz naturally on submit it refresh the page but we dont want refresh
+  const formData = new FormData(e.target); // 'this' refers to the form
+
+  const res = await fetch(apiUrl, {
+    method: "POST",
+    body: formData
+  });
+
+  if (res.ok) {
+    e.target.reset(); // reset form fields
+    bootstrap.Modal.getInstance(document.querySelector("#addStudentModal")).hide(); // close modal
+    fetchStudents(); // refresh the student table
+  }else{
+    alert("allert creating student")
+  }
+});
+
+
+
+/// delete student
+      async function deleteStudent(id){
+        if(confirm("Are u shure u want to delete account?")){
+            const res = await fetch(`${apiUrl}/${id}`,{method:"DELETE"});
+            if (res.ok) fetchStudents();
+          
+        }
+       }                   
+       
+       
+
+
+       
+/// Edit  student
+ 
+// --- Show student data in edit form ---
+
+async function editStudent(id) {
+  try {
+    const res = await fetch(`${apiUrl}/${id}`); // ✅ backticks sahi hai
+    const student = await res.json();
+
+   
+
+    document.querySelector('#editStudentId').value = student._id;
+    document.querySelector('#editFirstName').value = student.first_name;
+    document.querySelector('#editLastName').value = student.last_name;
+    document.querySelector('#editEmail').value = student.email;
+    document.querySelector('#editPhone').value = student.phone;
+    document.querySelector('#editGender').value = student.gender;
+
+    new bootstrap.Modal(document.querySelector('#editStudentModal')).show();
+  } catch (error) {
+    console.error("Error fetching student:", error);
+  }
+}
+
+// update student record
+document.querySelector('#editStudentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const id = document.querySelector('#editStudentId').value;
+
+  const res = await fetch(`${apiUrl}/${id}`, {
+    method: 'PUT',
+    body: formData
+  });
+
+  if (res.ok) {
+    bootstrap.Modal.getInstance(document.querySelector('#editStudentModal')).hide();
+    fetchStudents();
+  } else {
+    alert('Error updating student');
+  }
+});
+
+
+
+</script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

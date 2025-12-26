@@ -4,6 +4,8 @@ const Student = require("../models/student.model");
 const multer = require("multer");
 const path = require("path");
 
+
+
 /* ================= MULTER CONFIG ================= */
 
 const storage = multer.diskStorage({
@@ -28,7 +30,7 @@ const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 1024 * 1024 * 3 // 3MB
+    fileSize: 1024 * 1024 * 20 // 20MB
   }
 });
 
@@ -64,7 +66,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     const studentData = { ...req.body };
 
     if (req.file) {
-      studentData.image = req.file.filename;
+      studentData.profile_pic = req.file.filename;
     }
 
     const newStudent = new Student(studentData);
@@ -74,24 +76,30 @@ router.post("/", upload.single("image"), async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-});
+}) ; 
 
 
 
 
 
 
-/// Update student by ID
-router.put("/:id", async (req, res) => {
+/// Update student by ID (accept file upload)
+router.put('/:id', upload.single('image'), async (req, res) => {
   try {
+    const studentData = { ...req.body };
+
+    if (req.file) {
+      studentData.profile_pic = req.file.filename;
+    }
+
     const updatedStudent = await Student.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      studentData,
       { new: true }
     );
 
     if (!updatedStudent)
-      return res.status(404).json({ message: "Student not found" });
+      return res.status(404).json({ message: 'Student not found' });
 
     res.json(updatedStudent);
   } catch (err) {
